@@ -1,7 +1,24 @@
-# Academic Media
+# academic_media
 
-A research tool for academic media, communication and journalism researchers.
+## Project setup
+```
+npm install
+```
 
-https://github.com/mattlisiv/newsapi-python
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-https://github.com/codelucas/newspaper
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
