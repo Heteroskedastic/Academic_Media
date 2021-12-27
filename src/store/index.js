@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
+import {skelton__store} from './skeleton'
 
 export default new Vuex.Store({
   state: {
@@ -11,5 +12,6 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+    skelton__store
   }
 })

@@ -1,32 +1,32 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+        <router-view/>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-#nav {
-  padding: 30px;
-}
+export default {
+  name: 'App',
+   watch: {
+        $route(to,) {
+            document.title = to.meta.title || 'Academic Media';
+            // document.title = 'MR - ' +to.meta.title || 'Radisys - eRequisition Tool';
+        },
+    },
+};
+</script>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+<style scoped>
+         body::-webkit-scrollbar {
+            width: 9px;               /* width of the entire scrollbar */
+          }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+          body::-webkit-scrollbar-track {
+            background: white;        /* color of the tracking area */
+          }
+
+          body::-webkit-scrollbar-thumb {
+            background-color: #1890ff;    /* color of the scroll thumb */
+            border-radius: 20px;       /* roundness of the scroll thumb */
+            border: 3px solid white;  /* creates padding around scroll thumb */
+          }
 </style>
