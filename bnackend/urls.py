@@ -16,23 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import logout
 from django.shortcuts import render
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import TemplateView
 
 
-class MyFormView(TemplateView):
-    template_name = 'index.html'
-
-    def get(self, request, *args, **kwargs):
-        print(request.GET)
-        if request.GET.get('logout', None):
-            username = request.user.username
-            logout(request)
-            return render(request, 'tutorial/logout.html', context={'user': username})
-        return super().get(request, *args, **kwargs)
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', MyFormView.as_view(), name='Dashboard'),
+    path('', include('app.urls'))
+    # path('', MyFormView.as_view(), name='Dashboard'),
 
 ]

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title>Academic Create Account</title>
+    <link rel="icon" href="" type="image/gif" sizes="16x16">
+</head>
+
+<body>
+    <div id="app">
+        <v-app id="inspire">
+            <v-content>
+                <v-container class="fill-height" fluid>
+                    <v-row align="center" justify="center">
+                        <v-col cols="12" sm="8" md="4">
+                            <form ref='forms' method="post">
+                                {% csrf_token %}
+                                <input name="username" :value="username" type="hidden"></input>
+                                <input name="password" :value="password" type="hidden"></input>
+                                <input name="usertype" :value="usertype" type="hidden"></input>
+
+                                <v-card class="elevation-12" :disabled="loading" :loading="loading">
+                                    <v-list-item-content>
+                                        <v-col cols="auto">
+                                        </v-col>
+
+                                        <center>
+                                            <v-list-item-title class="headline text-xs-center">Academic Create Account
+                                            </v-list-item-title>
+                                        </center>
+                                    </v-list-item-content>
+                                    <v-card-text>
+                                        {% if error %}
+                                        <v-alert dense outlined type="error" >
+                                            {{error}}
+                                        </v-alert>
+                                        {%endif%}
+                                        {% if success %}
+                                        <v-alert dense text type="success" >
+                                            {{success}}
+                                        </v-alert>
+                                        {%endif%}
+
+                                        <v-form v-model="valid">
+                                            <v-text-field name="username" v-model="username" :rules="usernameRules"
+                                                required prepend-icon="mdi-account-circle" label="Email">
+                                            </v-text-field>
+
+                                            <v-text-field name="password" v-model="password" required
+                                                :rules="passwordRules" prepend-icon="mdi-lock"
+                                                :append-icon="showpassword ? 'mdi-eye' :'mdi-eye-off'"
+                                                :type="showpassword ? 'text': 'password'"
+                                                @click:append="showpassword = !showpassword" v-on:keyup.enter="onEnter"
+                                                label="Password"></v-text-field>
+                                            <v-radio-group :rules="UserType" row v-model="usertype">
+                                                <v-radio label="Researcher" value="researcher"></v-radio>
+                                                <v-radio label="Subject" value="subject"></v-radio>
+                                            </v-radio-group>
+
+
+
+                                    </v-card-text>
+                                    <v-divider></v-divider>
+                                    <v-card-actions>
+                                        <a class="ml-2" href="/accounts/login" type="submit">Already user
+                                        </a>
+                                        <v-spacer></v-spacer>
+
+                                        <v-btn class="ml-2" :disabled="!valid" color="info" @click="loading=true"
+                                            type="submit">Sign Up
+                                        </v-btn>
+                                    </v-card-actions>
+                                    </v-form>
+
+                                </v-card>
+                            </form>
+
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-content>
+        </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+
+    <script>
+        new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+            data: () => ({
+                google_captcha: true,
+                robot: true,
+                drawer: null,
+                showpassword: false,
+                loading: false,
+
+                // User Credentials
+                username: "",
+                password: "",
+                usertype: "",
+
+                // validation
+                valid: false,
+                usernameRules: [
+                    v => !!v || 'Name is required',
+                    v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+
+                ],
+                passwordRules: [
+                    v => !!v || 'Password is required',
+                ],
+                UserType: [
+                    v => !!v || 'Type is required',
+                ],
+                robotRules: [
+                    v => v == true || 'Password is required',
+                ],
+                // Backend validation
+                error: false,
+                error_msg: ""
+
+            }),
+            mounted() {
+                //this.mounted_method()
+                this.checking_google_service()
+
+            },
+            methods: {
+                validationCapchaParent(value) {
+                    if (value.detail[0]) {
+                        this.robot = true
+                    }
+                    else {
+                        this.robot = false
+                    }
+
+                },
+                onVerify: function (response) {
+                    if (response) this.robot = true;
+                }, onExpired: function (response) {
+                    this.robot = false
+                },
+                mounted_method() {
+                    this.loading = true
+                },
+                logincall() {
+                    this.loading = true
+                    const {
+                        username,
+                        password
+                    } = this;
+
+                },
+                checking_google_service() {
+
+                    setTimeout(() => {
+                        if (this.$refs.recaptchaRoot) {
+                            if (this.$refs.recaptchaRoot.childNodes[0].childNodes[0].childNodes.length) {
+                                this.google_captcha = true
+                            }
+                            else {
+                                this.google_captcha = false
+                            }
+
+                        }
+                    }, 4000);
+
+                },
+                onEnter() {
+                    if (this.valid) {
+                        this.loading = true
+                        this.$refs.forms.submit()
+                    }
+
+                }
+
+            }
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,3 +1,4 @@
+
 const state = {
     drawer : true
 }
@@ -17,6 +18,7 @@ const mutations = {
     ChangeDrawer_mutation(state, data){
         state.drawer = data
     }
+    
 }
 
 export const skelton__store = {

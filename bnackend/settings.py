@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'django_filters',
+    'app'
 ]
 
 MIDDLEWARE = [
@@ -74,10 +77,17 @@ WSGI_APPLICATION = 'bnackend.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'defaultdb',
+        'USER': 'doadmin',
+        'PASSWORD': 'aat5ccmmaqVXek2Z',
+        'HOST': 'academic-1-db-postgresql-sfo-r3-do-user-10514127-0.b.db.ondigitalocean.com',
+        'PORT': '25060',
+
+    },
 }
 
 
@@ -128,3 +138,67 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL='app.User'
+
+AUTHENTICATION_BACKENDS = ['app.backend.EmailBackend']
+
+
+
+REST_FRAMEWORK = {
+    "DATETIME_FORMAT" : '%Y-%m-%d %I:%M %p'
+}
+# DataFlair #Logging Information
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': "Vpower-debug.log",
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'standard',
+        },
+        'console':{
+            'level':'INFO',
+            'class':'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers':['console'],
+            'propagate': True,
+            'level':'WARN',
+        },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'app': {
+            'handlers': ['console', 'logfile'],
+            'level': 'INFO',
+        },
+    }
+}
+
+# TODO : Run Only in Dev Setup
+INSTALLED_APPS += [
+    'corsheaders'
+]
+MIDDLEWARE += [
+    'corsheaders.middleware.CorsMiddleware',
+]
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8081']

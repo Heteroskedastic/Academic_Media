@@ -1,15 +1,36 @@
 <template>
-    <LandingPage />
+  <v-app >
+
+    <NavigationDrawer/>
+    <AppBar/>
+
+    <v-main>
+      <v-container  fluid>
+        <router-view/>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-// @ is an alias to /src
-import LandingPage from '../components/LandingPage.vue'
+import NavigationDrawer from '../components/skeleton/NavigationDrawer.vue'
+import AppBar from '../components/skeleton/AppBar.vue'
+import { UserMixins } from "../mixins/user";
 
 export default {
-  name: 'Home',
-  components: {
-    LandingPage
+  mixins: [UserMixins],
+  components:{
+    NavigationDrawer,
+    AppBar
+  },
+  data: () => ({
+    
+  }),
+  mounted(){
+    this.GET_USER_API();
+  },
+  methods:{
+    
   }
-}
+};
 </script>

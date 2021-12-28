@@ -14,6 +14,11 @@ export const SkeletonMixins = {
         },
 
     },
+    filters: {
+        uppercase: function(v) {
+          return v.toUpperCase();
+        }
+      },
     methods:{
         ...mapActions('skelton__store', ["ChangeDrawer"]),
 

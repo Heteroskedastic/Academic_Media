@@ -9,16 +9,21 @@ const routes = [
     path: '/',
     name: 'LandingPage',
     component: Landing_view,
-    redirect: '/stories',
     meta: { title: 'Home' },
-    children:[
+    children: [
       {
-      path: '/stories',
-      component: () => import(/* webpackChunkName: "demo" */ '../components/News/stories.vue'),
-      meta: { title: 'Stories' }
+        path: '/',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/Home.vue'),
+        meta: { title: 'Home' }
+      },
+      {
+        path: '/project/:id',
+        component: () => import(/* webpackChunkName: "demo" */ '../components/Project/ProjectDetailView.vue'),
+        meta: { title: 'Home' }
       },
     ]
   },
+
 ]
 
 const router = new VueRouter({
@@ -26,5 +31,6 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
 
 export default router

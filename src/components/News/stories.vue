@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>Headlines</h3>
     <v-row>
       <v-col cols="12" sm="8">
         <v-card outlined>

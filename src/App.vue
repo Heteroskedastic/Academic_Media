@@ -9,7 +9,6 @@ export default {
    watch: {
         $route(to,) {
             document.title = to.meta.title || 'Academic Media';
-            // document.title = 'MR - ' +to.meta.title || 'Radisys - eRequisition Tool';
         },
     },
 };
