@@ -1,6 +1,7 @@
 <template>
   <div class="mt-2">
     <v-data-table
+      :loading="tableloading"
       elivation="0"
       :headers="headers"
       :items="Projects_getters"
@@ -10,7 +11,7 @@
       <template v-slot:item.action="{  item }">
         <a
           ><v-icon
-            @click="$router.push('/project/'+item.name)"
+            @click="$router.push('/project/'+item.id)"
             title="Preview"
             color="primary"
           >
@@ -31,6 +32,7 @@ export default {
   mixins: [UserMixins],
   data() {
     return {
+      tableloading: false,
       headers: [
         { text: "Project", value: "name" },
         { text: "Action", value: "action" },
@@ -43,7 +45,11 @@ export default {
     };
   },
   mounted() {
-    this.GET_USER_Project();
+    this.tableloading = true
+    this.GET_USER_Project()
+    .then(() => {
+      this.tableloading = false
+    })
   },
 };
 </script>

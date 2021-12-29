@@ -15,12 +15,16 @@
 
       <div>{{ Userinfo_getters.email ? Userinfo_getters.email : "" }}</div>
       <div class="text-caption">
-        {{ Userinfo_getters.type ? Userinfo_getters.type : "" }}
+        
+        <v-form>
+          {{ Userinfo_getters.type ? Userinfo_getters.type : "" }} -
+          <input name="logout" value="true" type="hidden" />
+          <v-btn x-small outlined color="primary" type="submit">Logout</v-btn>
+        </v-form>
       </div>
       <div class="text-caption">
         Last Login:
-        {{ Userinfo_getters.last_login ? Userinfo_getters.last_login : "" }} 
-        <!-- <v-btn color="primary" x-small outlined>Logout</v-btn> -->
+        {{ Userinfo_getters.last_login ? Userinfo_getters.last_login : "" }}
       </div>
     </v-sheet>
     <!--  -->

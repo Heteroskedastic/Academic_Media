@@ -1,0 +1,26 @@
+<html>
+<head>
+
+<title>onselect test</title>
+
+<script type="text/javascript">
+
+window.onselect = selectText;
+
+function selectText(e)
+{
+    start = e.target.selectionStart;
+    end = e.target.selectionEnd;
+    alert(e.target.value.substring(start, end));
+}
+</script>
+</head>
+
+<body>
+<textarea>
+Highlight some of this text
+with the mouse pointer
+to fire the onselect event.
+</textarea>
+</body>
+</html>

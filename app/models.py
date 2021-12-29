@@ -1,9 +1,9 @@
-
 from django.db import models
 
 # Create your models here.
 
 from django.contrib.auth.models import AbstractUser
+from django.db.models import JSONField
 
 
 class User(AbstractUser):
@@ -35,3 +35,9 @@ class Project(models.Model):
     name = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
     lastupdated = models.DateTimeField(auto_now=True)
+
+
+class ProjectNews(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    news = models.ForeignKey(News, on_delete=models.CASCADE)
+    highlight = JSONField()

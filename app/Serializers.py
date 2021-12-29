@@ -1,7 +1,7 @@
 from drf_queryfields import QueryFieldsMixin
 from rest_framework import serializers
 
-from app.models import User, Project, News
+from app.models import User, Project, News, ProjectNews
 
 
 class ChoiceField(serializers.ChoiceField):
@@ -43,6 +43,13 @@ class NewsSerializers(QueryFieldsMixin, serializers.ModelSerializer):
     class Meta:
         model = News
         fields = '__all__'
+
+class ProjectNewsSerializers(QueryFieldsMixin, serializers.ModelSerializer):
+    project_ser = ProjectSerializers(read_only=True, source='project')
+    news_ser = NewsSerializers(read_only=True, source='news')
+    class Meta:
+        model = ProjectNews
+        fields = ['project', 'news', 'highlight', 'project_ser', 'news_ser']
 
 
 

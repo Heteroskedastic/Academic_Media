@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 
 # Create your views here.
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -18,6 +18,13 @@ log = logging.getLogger(__name__)
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "index.html"
+
+    def get(self, request, *args, **kwargs):
+        if request.GET.get('logout', None):
+            username = request.user.username
+            logout(request)
+            return render(request, 'logout.html', context={'user': username})
+        return super().get(request, *args, **kwargs)
 
 
 class LoginView(TemplateView):

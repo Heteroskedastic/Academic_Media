@@ -30,6 +30,16 @@ class ProjectAPI(viewsets.ModelViewSet):
         return self.queryset
 
 
+class ProjectNewsAPI(viewsets.ModelViewSet):
+    serializer_class = Serializers.ProjectNewsSerializers
+    queryset = models.ProjectNews.objects.all()
+    pagination_class = None
+
+    def get_queryset(self):
+        self.queryset = models.ProjectNews.objects.filter(project__user=self.request.user)
+        return self.queryset
+
+
 
 
 

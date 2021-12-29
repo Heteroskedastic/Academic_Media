@@ -37,6 +37,18 @@ const actions = {
                 })
         })
     },
+    GET_USER_Project_ID({ commit }, param) {
+        return new Promise((resolve, reject) => {
+            BackendAxios.get('api/project/'+param)
+                .then(data => {
+                    commit('Projects_mutation', data.data)
+                    resolve(data)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
+    },
     GET_News({ commit }, query) {
         commit
         return new Promise((resolve, reject) => {
@@ -49,10 +61,34 @@ const actions = {
                 })
         })
     },
+    GET_ProjectNews({ commit }) {
+        commit
+        return new Promise((resolve, reject) => {
+            BackendAxios.get('api/ProjectNews/')
+                .then(data => {
+                    resolve(data)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
+    },
     POST_USER_Project({ commit }, payload) {
         commit
         return new Promise((resolve, reject) => {
             BackendAxios.post('api/project/', payload)
+                .then(data => {
+                    resolve(data)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
+    },
+    POST_USER_ProjectNews({ commit }, payload) {
+        commit
+        return new Promise((resolve, reject) => {
+            BackendAxios.post('api/ProjectNews/', payload)
                 .then(data => {
                     resolve(data)
                 })
