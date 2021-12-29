@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import search from "../News/Search.vue";
-import viewNews from "../News/ViewNews.vue";
+import search from "../News/SearchNews.vue";
+import viewNews from "../News/ViewNewsPage.vue";
 import { UserMixins } from "../../mixins/user";
 
 export default {
