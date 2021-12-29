@@ -13,10 +13,10 @@
 
         <v-tabs-items v-model="tab">
           <v-tab-item>
-            <viewNews :project="projectId" />
+            <ViewNewsPage :project="projectId" />
           </v-tab-item>
           <v-tab-item>
-            <search :project="projectId" />
+            <SearchNews :project="projectId" />
           </v-tab-item>
         </v-tabs-items>
       </v-card-text>
@@ -25,15 +25,15 @@
 </template>
 
 <script>
-import search from "../News/SearchNews.vue";
-import viewNews from "../News/ViewNewsPage.vue";
+import SearchNews from "../News/SearchNews.vue";
+import ViewNewsPage from "../News/ViewNewsPage.vue";
 import { UserMixins } from "../../mixins/user";
 
 export default {
   mixins: [UserMixins],
   components: {
-    search,
-    viewNews
+    SearchNews,
+    ViewNewsPage
   },
   data() {
     return {
