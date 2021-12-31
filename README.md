@@ -8,7 +8,11 @@
 * `python manage.py runserver 9040`
 
 
-## How to save news(newsapi) articles in DB
+## How to save news(using newsapi) articles in DB
 * `python manage.py newsapi --endpoint top-headlines  --apiKey <api_token>  -c us`
+
+## How to save news(using newspapers) articles in DB
+* `python manage.py newspapers -u https://edition.cnn.com/world/live-news/omicron-variant-coronavirus-news-12-29-21/index.html
+`
 
 

@@ -9,7 +9,7 @@
       ></v-progress-circular>
     </div>
     <div v-if="ProjectNews">
-    <v-card elevation="0" v-for="i in ProjectNews" v-bind:key="i.id">
+    <v-card outlined class="mt-2"  elevation="0" v-for="i in ProjectNews" v-bind:key="i.id">
       <v-list-item three-line>
         <v-list-item-content>
           <div class="text-overline mb-4">
@@ -25,6 +25,19 @@
           ><v-img :src="i.news_ser.urlToImage"></v-img
         ></v-list-item-avatar>
       </v-list-item>
+      
+        <div class="ml-3" v-if="i.highlight && i.highlight.data">
+          <v-tooltip v-for=" i in i.highlight.data" v-bind:key="i.word" bottom>
+      <template v-slot:activator="{ on, attrs }">
+        
+        <v-chip small v-bind="attrs"
+          v-on="on">{{i.word}}</v-chip>
+      </template>
+      <span>{{i.comment}}</span>
+    </v-tooltip>
+
+          
+        </div>
       <v-card-actions>
         <v-spacer></v-spacer>
         <HighlightNews :Readonly="false" :commentDB="i.highlight.data"  :news="i.news_ser" />

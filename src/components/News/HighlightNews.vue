@@ -123,9 +123,9 @@
               </v-menu>
             </v-col>
             <v-col cols="12" sm="6">
-            <b v-if="Readonly">Preview: </b>
+            <b v-if="Readonly">Preview:  </b>
               <br />
-              <div v-html="highlight()"></div>
+              <div  v-html="highlight()"></div>
             </v-col>
           </v-row>
 
@@ -155,6 +155,7 @@ export default {
 
   data() {
     return {
+      load: true,
       dialog: false,
       saveloading: false,
       RequiredRules: [(v) => !!v || "Required"],
@@ -219,13 +220,9 @@ export default {
           html =
             html +
             this.news.description.replace(new RegExp(i.word, "gi"), (match) => {
-              return (
-                "<span title=" +
-                i.comment +
-                ' class="highlightText">' +
-                match +
-                "</span>"
-              );
+              var temp = '<div class="tooltip highlightText">'+ match +'<span class="tooltiptext">'+i.comment+'</span></div>'
+              return temp
+              
             });
         }
         return html;
@@ -248,5 +245,40 @@ export default {
 <style>
 .highlightText {
   background: yellow;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 </style>
